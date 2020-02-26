@@ -18,33 +18,77 @@
     <!-- Your own CSS -->
     <link rel="stylesheet" href="/styles.css">
 
-    <title>Ask</title>
+    <title>News</title>
   </head>
+
   <body>
 
-     <div class="jumbotron jumbotron-fluid">
+   <div class="jumbotron jumbotron-fluid">
         <div class="container">
         
             <h1 class="display-4">News and Weather</h1>
             <p class="lead">Get the news report and weather forecast for any location!</p>
             <hr class="my-5">
+            <a class="btn btn-primary btn-lg" href="/" role="button">Try another location!</a>
         </div>
     </div>
 
-    <div class="container mt-5">
-      <h1>Location of interest?</h1>
+    <div class="container mt-2">
+        <div class="row mt-4">
+            <div class="col text-center section-title">
+                <h2>Weather report for <%= @location %></h2>
+            </div>
+        </div>
 
-      
+        <div class="row mt-4">
+            <div class="col-sm-6 text-left">
+                <h3>Current weather:</h3>
+                <p> In <%= @location %>, it is currently <strong><%= @current_temperature %> °F</strong> and <%= @current_conditions.downcase %></p>
+            </div>
+            
+            
+            <div class="col-sm-6 text-left">
+                <h3>Extended Forecast (next 8 days):</h3>
+                <p> 
+                    <% for day in @daily_forecast %>
+                        <div class="container mt-1">
+                             A high temperature of <%= day["temperatureHigh"] %> °F and <%= day["summary"] %>
+                        </div>
+                    <% end %>  
+
+            </div>
+ 
+        </div>
+
+        <div class="row mt-4">
+            <div class="col text-center section-title">
+                <h2>These are the latest news:</h2>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+        
+        
+        <% for news in @headlines %>
+        
+        <li class="mt-2 news_titles">
+            <strong><%= news["title"] %></strong>
+        </li>
+        
+
+        <div class="news_link">
+            
+            <a href="<%= news["url"] %>" target="_blank"><p><%= news["url"] %></p></a>
+        </div>
+        <% end %>
+        
+        </div>
+
+            
+
+
     </div>
 
-    <div class="container mt-5">
-        <form action="/news">
-            <label>Enter your location:</label>
-            <input type="text" name="location">
-            <button type="submit" class="btn btn-primary">Submit!</submit>
-        </form>
-
-    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
